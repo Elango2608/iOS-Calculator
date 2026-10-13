@@ -1,0 +1,198 @@
+/* ===== Custom Properties ===== */
+:root {
+    --bg-body: #333;
+    --bg-calc: #000;
+    --bg-display: #333;
+    --bg-num: #505050;
+    --bg-num-hover: #666;
+    --bg-func: #bdbdbd;
+    --bg-func-hover: #d4d4d4;
+    --bg-op: #ff9f0a;
+    --bg-op-active: #ffc26c;
+    --bg-op-hover: #ffb340;
+    --text-light: #fff;
+    --text-dark: #111;
+    --radius-btn: 50%;
+    --gap-row: 19px;
+    --gap-col: 10px;
+    --btn-size: 43px;
+    --container-width: 285px;
+    --transition-speed: 0.15s;
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== Body ===== */
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: var(--bg-body);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Container ===== */
+.container {
+    width: var(--container-width);
+    padding: 32px 14px 28px;
+    background: var(--bg-calc);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: var(--text-light);
+    font-size: 23px;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 31px;
+}
+
+/* ===== Display ===== */
+.display {
+    width: 100%;
+    height: 57px;
+    margin-bottom: 20px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    border-radius: 9px;
+    background: var(--bg-display);
+    color: var(--text-light);
+    font-size: 29px;
+    font-weight: 300;
+    white-space: nowrap;
+    transition: font-size 0.15s ease;
+}
+
+/* Dynamic font scaling for long numbers */
+.display.long-number {
+    font-size: 22px;
+}
+
+.display.very-long-number {
+    font-size: 17px;
+}
+
+/* ===== Button Grid ===== */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap-row) var(--gap-col);
+    justify-items: center;
+}
+
+/* ===== Base Button ===== */
+button {
+    width: var(--btn-size);
+    height: var(--btn-size);
+    border: none;
+    border-radius: var(--radius-btn);
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: filter var(--transition-speed),
+                transform var(--transition-speed),
+                background-color var(--transition-speed);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+/* Hover states (non-touch) */
+@media (hover: hover) {
+    .num:hover {
+        background: var(--bg-num-hover);
+    }
+
+    .function:hover {
+        background: var(--bg-func-hover);
+    }
+
+    .operator:hover {
+        background: var(--bg-op-hover);
+    }
+}
+
+/* Focus visible for keyboard navigation */
+button:focus-visible {
+    outline: 2px solid var(--text-light);
+    outline-offset: 2px;
+}
+
+/* Active / pressed state */
+button:active {
+    filter: brightness(1.4);
+    transform: scale(0.94);
+}
+
+/* Active operator highlight (stays on until next number) */
+.operator.active {
+    background: var(--bg-op-active);
+    filter: none;
+}
+
+.operator.active:active {
+    filter: brightness(0.9);
+}
+
+/* ===== Button Variants ===== */
+.num {
+    background: var(--bg-num);
+    color: var(--text-light);
+}
+
+.function {
+    background: var(--bg-func);
+    color: var(--text-dark);
+}
+
+.operator {
+    background: var(--bg-op);
+    color: var(--text-light);
+}
+
+/* ===== Zero Button ===== */
+.zero {
+    width: 100%;
+    grid-column: span 2;
+    border-radius: 30px;
+}
+
+.buttons .zero {
+    justify-self: stretch;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 340px) {
+    .container {
+        width: 100%;
+        max-width: 285px;
+    }
+
+    .buttons {
+        gap: 15px 7px;
+    }
+
+    :root {
+        --btn-size: 40px;
+    }
+
+    .display {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
